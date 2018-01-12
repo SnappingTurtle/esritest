@@ -11,7 +11,7 @@ import { EsriLoaderService } from 'angular2-esri-loader';
 export class EsriMapComponent implements OnInit {
 
   // for JSAPI 4.x you can use the "any for TS types
-  public mapView: any;
+  public mapView: __esri.MapView;
 
   // this is needed to be able to create the MapView at the DOM element in this component
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
@@ -33,14 +33,14 @@ export class EsriMapComponent implements OnInit {
       ]).then(([
         Map,
         MapView
-      ]) => {
-        const mapProperties: any = {
+      ]: [ __esri.MapConstructor, __esri.MapViewConstructor]) => {
+        const mapProperties: __esri.MapProperties = {
           basemap: 'hybrid'
         };
 
-        const map: any = new Map(mapProperties);
+        const map = new Map(mapProperties);
 
-        const mapViewProperties: any = {
+        const mapViewProperties: __esri.MapViewProperties = {
           // create the map view at the DOM element in this component
           container: this.mapViewEl.nativeElement,
           // supply additional options
