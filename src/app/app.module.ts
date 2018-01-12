@@ -3,16 +3,22 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { EsriMapComponent } from './esri-map/esri-map.component';
 
+import { EsriLoaderService } from 'angular2-esri-loader';
+//import { EsriMapComponent } from './esri-map/esri-map.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EsriMapComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    EsriLoaderService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
