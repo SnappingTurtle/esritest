@@ -22,22 +22,31 @@ export class EsriMapComponent implements OnInit {
 
   public ngOnInit() {
     // only load the ArcGIS API for JavaScript when this component is loaded
-    return this.esriLoader.load({
-      // use a specific version of the JSAPI
-      url: 'https://js.arcgis.com/4.3/'
-    }).then(() => {
-      // load the needed Map and MapView modules from the JSAPI
+    let api: Promise<Function> = this.esriLoader.load({
+      url: 'https://js.arcgis.com/4.6/'
+      //url: 'http://localhost:4200/arcgis46.js'
+    })
+    
+    // now load the modules
+    let modules: Promise<any> = api.then((blah) => {
+      
       this.esriLoader.loadModules([
         'esri/Map',
-        'esri/views/MapView'
+        'esri/views/MapView',
+        'esri/views/2d/draw/Draw'
       ]).then(([
         Map,
-        MapView
-      ]: [ __esri.MapConstructor, __esri.MapViewConstructor]) => {
-        const mapProperties: __esri.MapProperties = {
+        MapView,
+        Draw
+      ]: [ 
+        __esri.MapConstructor, 
+        __esri.MapViewConstructor, 
+        __esri.DrawConstructor
+        ]) => {
+        /*const mapProperties: __esri.MapProperties = {
           basemap: 'hybrid'
         };
-
+        
         const map = new Map(mapProperties);
 
         const mapViewProperties: __esri.MapViewProperties = {
@@ -50,8 +59,33 @@ export class EsriMapComponent implements OnInit {
         };
 
         this.mapView = new MapView(mapViewProperties);
+        const danno: __esri.DrawProperties = {
+          view: this.mapView
+        }
+        const draw = new Draw(danno);*/
+
+        // all of the pure interfaces can be reached at __esri.whatever
+        // use them for properties interfaces for example
+        // need to pass all module refs to initMap to be able to use objects
+        this.initMap(Map, MapView, Draw);
       });
     });
+  }
+
+  initMap(Map, MapView, Draw) {
+    const mapProperties: __esri.MapProperties = {
+          basemap: 'streets'
+        };
+    const map = new Map(mapProperties);
+    const mapViewProperties: __esri.MapViewProperties = {
+          // create the map view at the DOM element in this component
+          container: this.mapViewEl.nativeElement,
+          // supply additional options
+          center: [-75.568183, 45.433702],
+          zoom: 13,
+          map // property shorthand for object literal
+        };
+    this.mapView = new MapView(mapViewProperties);
   }
 
 }
