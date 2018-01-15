@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import  Map = require('esri/Map');
+import  MapView = require('esri/views/MapView');
 
 // also import the "angular2-esri-loader" to be able to load JSAPI modules
 import { EsriLoaderService } from 'angular2-esri-loader';
@@ -23,8 +25,9 @@ export class EsriMapComponent implements OnInit {
   public ngOnInit() {
     // only load the ArcGIS API for JavaScript when this component is loaded
     let api: Promise<Function> = this.esriLoader.load({
-      url: 'https://js.arcgis.com/4.6/'
+      //url: 'https://js.arcgis.com/4.6/'
       //url: 'http://localhost:4200/arcgis46.js'
+      url: 'http://localhost:8080/4.6/dojo/dojo.js'
     })
     
     // now load the modules
@@ -86,6 +89,10 @@ export class EsriMapComponent implements OnInit {
           map // property shorthand for object literal
         };
     this.mapView = new MapView(mapViewProperties);
+  }
+
+  startMap() {
+    const mymap = new Map({});
   }
 
 }
