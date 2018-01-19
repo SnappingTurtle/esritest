@@ -8,6 +8,8 @@ import { EsriMapComponent } from './esri-map/esri-map.component';
 import { EsriLoaderService } from 'angular2-esri-loader';
 //import { EsriMapComponent } from './esri-map/esri-map.component';
 
+//import Map = require('esri/Map');
+
 @NgModule({
   declarations: [
     AppComponent,

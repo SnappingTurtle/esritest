@@ -3,6 +3,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 // also import the "angular2-esri-loader" to be able to load JSAPI modules
 import { EsriLoaderService } from 'angular2-esri-loader';
 
+//import Map = require('esri/Map');
+//import MapView = require('esri/views/MapView');
+//import Draw = require('esri/views/2d/draw/Draw');
+
+
 @Component({
   selector: 'app-esri-map',
   templateUrl: './esri-map.component.html',
@@ -21,6 +26,7 @@ export class EsriMapComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
+    //this.initMap();
     // only load the ArcGIS API for JavaScript when this component is loaded
     let api: Promise<Function> = this.esriLoader.load({
       url: 'https://js.arcgis.com/4.6/'
@@ -62,17 +68,18 @@ export class EsriMapComponent implements OnInit {
         const danno: __esri.DrawProperties = {
           view: this.mapView
         }
-        const draw = new Draw(danno);*/
+        const draw = new Draw(danno);
 
         // all of the pure interfaces can be reached at __esri.whatever
         // use them for properties interfaces for example
-        // need to pass all module refs to initMap to be able to use objects
+        // need to pass all module refs to initMap to be able to use objects*/
         this.initMap(Map, MapView, Draw);
       });
     });
   }
 
   initMap(Map, MapView, Draw) {
+  //initMap() {
     const mapProperties: __esri.MapProperties = {
           basemap: 'streets'
         };
